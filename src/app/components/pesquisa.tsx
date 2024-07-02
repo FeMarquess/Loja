@@ -1,18 +1,28 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Corrigido para useRouter
+import { PesquisarProduto } from '../api/postProdutos';
 
 interface PesquisaProps {
     aoTermoPesquisa: (termoPesquisa: string) => void;
 }
 
 export default function Pesquisa({ aoTermoPesquisa }: PesquisaProps) {
-    const [termoPesquisa, setTermoPesquisa] = useState('');
+    const [termoPesquisa, setTermoPesquisa] = React.useState('');
     const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         aoTermoPesquisa(termoPesquisa);
-        setTermoPesquisa("");
+        console.log(termoPesquisa)
+        try {
+            await PesquisarProduto(termoPesquisa, 1);
+            setTermoPesquisa("");
+            router.push('/produtoscliente');
+        } catch (error) {
+            console.error('Erro ao pesquisar produto:', error);
+        }
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,12 +33,15 @@ export default function Pesquisa({ aoTermoPesquisa }: PesquisaProps) {
         <div>
             <form onSubmit={handleSubmit}>
                 <input
+                    className="rounded-full bg-white px-2 mx-2 h-[30px]"
                     type="text"
                     placeholder="Pesquisar..."
                     value={termoPesquisa}
                     onChange={handleInputChange}
                 />
-                <button type="submit">Buscar</button>
+                <button className="text-white rounded-full px-4 py-1" type="submit">
+                    <FontAwesomeIcon icon={faSearch} />
+                </button>
             </form>
         </div>
     )
