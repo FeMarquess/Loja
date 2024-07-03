@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import FormProdutos from "../components/formProdutos";
+import FormProdutos from "../../components/formProdutos";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import Ordenar from '../../../src/app/components/ordenar';
-import { VisualizarProduto, AdicionarProduto, DeletarProduto, EditarProduto, ProdutoCarrinhoPost } from '../api/postProdutos';
+import Ordenar from '../../components/ordenar';
+import { VisualizarProduto, AdicionarProduto, DeletarProduto, EditarProduto, ProdutoCarrinhoPost } from '../../api/postProdutos';
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState<{ id: string, name: string, price: number, category: string, brand: string }[]>([]);
