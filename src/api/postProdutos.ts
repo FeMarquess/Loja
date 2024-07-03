@@ -1,11 +1,8 @@
-import axios from "axios"
 import api from "@/services/api"
-
-const API_BASE_URL = 'http://localhost:3333';
 
 export const VisualizarProduto = async () => {
     try{
-        const response = await axios.get(`${API_BASE_URL}/products`)
+        const response = await api.get(`/products`)
         return(response.data.products)
     } catch (error) {
         console.log(error)
@@ -14,7 +11,7 @@ export const VisualizarProduto = async () => {
 
 export const AdicionarProduto = async (produtos: { name:string, price:number, category:string, brand:string } ) => {
     try{
-        const response = await axios.post(`${API_BASE_URL}/products`, produtos)
+        const response = await api.post(`/products`, produtos)
         return(response.data)
     } catch (error) {
         console.log(error)
@@ -23,7 +20,7 @@ export const AdicionarProduto = async (produtos: { name:string, price:number, ca
 
 export const PesquisarProduto = async (termoPesquisa:string, page: number) => {
     try{
-        const response = await axios.get(`${API_BASE_URL}/products/name/${termoPesquisa}/${page}`)
+        const response = await api.get(`/products/name/${termoPesquisa}/${page}`)
         return(response.data)
     } catch (error) {
         console.log(error)
@@ -32,7 +29,7 @@ export const PesquisarProduto = async (termoPesquisa:string, page: number) => {
 
 export const EditarProduto = async (produtos: { id:string, name: string, price: number, category: string, brand: string }) => {
     try{
-        const response = await axios.put(`${API_BASE_URL}/products/${produtos.id}`, produtos)
+        const response = await api.put(`/products/${produtos.id}`, produtos)
         return(response.data)
     } catch (error) {
         console.log("produto não editado")
@@ -41,7 +38,7 @@ export const EditarProduto = async (produtos: { id:string, name: string, price: 
 
 export const DeletarProduto = async (id:string) => {
     try{
-        const response = await axios.delete(`${API_BASE_URL}/products/${id}`)
+        const response = await api.delete(`/products/${id}`)
         return(response.data)
     } catch (error) {
         console.log("produto não deletado")
@@ -50,7 +47,7 @@ export const DeletarProduto = async (id:string) => {
 
 export const ProdutoCarrinhoPost = async (id:string) => {
     try{
-        const response = await axios.post(`${API_BASE_URL}/productsCart/${id}`)
+        const response = await api.post(`/productsCart/${id}`)
         return(response.data)
     } catch (error) {
         console.log("produto não deletado")
@@ -59,7 +56,7 @@ export const ProdutoCarrinhoPost = async (id:string) => {
 
 export const ProdutoCarrinho = async () => {
     try{
-        const response = await axios.get(`${API_BASE_URL}/productsCart`)
+        const response = await api.get(`/productsCart`)
         return(response.data.products)
     } catch (error) {
         console.log(error)

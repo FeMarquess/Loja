@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from "react";
+import React from 'react';
 import { useRouter } from "next/navigation"; // Corrigido para useRouter
-import { PesquisarProduto } from '../api/postProdutos';
-
 interface PesquisaProps {
     aoTermoPesquisa: (termoPesquisa: string) => void;
 }
@@ -17,9 +15,8 @@ export default function Pesquisa({ aoTermoPesquisa }: PesquisaProps) {
         aoTermoPesquisa(termoPesquisa);
         console.log(termoPesquisa)
         try {
-            await PesquisarProduto(termoPesquisa, 1);
-            setTermoPesquisa("");
-            router.push('/produtoscliente');
+            setTermoPesquisa('');
+            router.push(`/produtoscliente/${termoPesquisa}`);
         } catch (error) {
             console.error('Erro ao pesquisar produto:', error);
         }
